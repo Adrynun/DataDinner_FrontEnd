@@ -1,0 +1,29 @@
+.mesa {
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.mesa-disponible {
+  background-color: green;
+}
+
+.mesa-ocupada {
+  background-color: red;
+}
+
+.mesa-reservada {
+  background-color: orange;
+}
