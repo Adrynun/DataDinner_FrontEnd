@@ -1,0 +1,30 @@
+<div class="login-container">
+  <h2>Selecciona tu usuario</h2>
+
+  <div class="usuarios-grid">
+    <div
+      class="usuario-card"
+      *ngFor="let usuario of usuarios"
+      (click)="seleccionarUsuario(usuario)"
+    >
+      <img
+        [src]="usuario.avatarUrl || 'assets/avatars/default.png'"
+        alt="{{ usuario.nombre }}"
+        class="avatar"
+      />
+      <p>{{ usuario.nombre }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="usuarioSeleccionado" class="pin-container">
+    <h3>Introduce tu PIN</h3>
+    <input
+      type="password"
+      [(ngModel)]="pin"
+      placeholder="PIN"
+      maxlength="4"
+    />
+    <button (click)="login()">Entrar</button>
+    <button (click)="cancelar()">Cancelar</button>
+  </div>
+</div>

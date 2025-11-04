@@ -1,1 +1,4 @@
+<nav *ngIf="authService.isLoggedIn()" class="navbar">
+  <button (click)="logout()">Cerrar sesión</button>
+</nav>
 <router-outlet></router-outlet>

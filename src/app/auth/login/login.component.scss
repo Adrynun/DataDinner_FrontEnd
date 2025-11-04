@@ -1,0 +1,44 @@
+.login-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.usuarios-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.usuario-card {
+  width: 120px;
+  padding: 1rem;
+  border-radius: 10px;
+  background: #f2f2f2;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.usuario-card:hover {
+  transform: scale(1.05);
+  background-color: #eaeaea;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pin-container {
+  margin-top: 2rem;
+}
+
+input {
+  padding: 0.5rem;
+  font-size: 1.2rem;
+  width: 100px;
+  text-align: center;
+}

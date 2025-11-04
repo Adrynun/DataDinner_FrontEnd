@@ -1,9 +1,14 @@
 <h2>Salón de mesas</h2>
 <div class="salon-container">
-  <app-mesa-item
+  <div
+    class="mesa-wrapper"
     *ngFor="let mesa of mesas"
-    [mesa]="mesa"
-    (mesaClick)="irAPedido($event)"
+    [style.left.px]="mesa.x"
+    [style.top.px]="mesa.y"
   >
-  </app-mesa-item>
+    <app-mesa-item
+      [mesa]="mesa"
+      (mesaClick)="irAPedido($event)"
+    ></app-mesa-item>
+  </div>
 </div>
