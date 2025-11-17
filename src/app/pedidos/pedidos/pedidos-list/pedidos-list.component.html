@@ -1,0 +1,13 @@
+<h2>Pedidos de la Mesa {{ idMesa }}</h2>
+
+<button (click)="irANuevoPedido()">➕ Nuevo Pedido</button>
+
+<div *ngIf="pedidos.length === 0" class="empty">
+  Esta mesa no tiene pedidos todavía.
+</div>
+
+<ul>
+  <li *ngFor="let p of pedidos" (click)="irADetalle(p.id)">
+    Pedido #{{ p.id }} — {{ p.estado }} — {{ p.total }}€
+  </li>
+</ul>

@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private isAuthenticated = false;
+  private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
+  isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
   login(username: string, password: string): Observable<boolean> {
-    // Mock de ejemplo: usuario admin / pass 1234
-    if (username === 'admin' && password === '1234') {
-      this.isAuthenticated = true;
-      return of(true).pipe(delay(500));
-    } else {
-      return throwError(() => new Error('Credenciales inválidas'));
-    }
-  }
+  return of(true).pipe(
+    delay(500),
+    tap(() => this.isAuthenticatedSubject.next(true))
+  );
+}
 
-  logout() {
-    this.isAuthenticated = false;
+  logout(): void {
+    this.isAuthenticatedSubject.next(false);
   }
 
   isLoggedIn(): boolean {
-    return this.isAuthenticated;
+    return this.isAuthenticatedSubject.value;
   }
 }

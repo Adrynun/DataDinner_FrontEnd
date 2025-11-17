@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UsuarioService } from 'src/app/core/services/usuario.service';
-import { Usuario } from 'src/app/shared/models/usuario.model';
+import { UsuarioService } from '../../core/services/usuario.service';
+import { Usuario } from '../../shared/models/usuario.model';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   usuarioSeleccionado: Usuario | null = null;
   pin: string = '';
 
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -61,7 +62,12 @@ export class LoginComponent implements OnInit {
     if (this.pin === '1234') {
       console.log('PIN correcto, navegando al salón...');
       localStorage.setItem('usuario', JSON.stringify(this.usuarioSeleccionado));
-      this.router.navigate(['/salon']);
+
+      // 🔹 Notifica al AuthService que el usuario está autenticado
+      this.authService.login('usuario', this.pin).subscribe({
+        next: () => this.router.navigate(['/salon']),
+        error: err => console.error('Error en login:', err),
+      });
     } else {
       alert('PIN incorrecto');
     }

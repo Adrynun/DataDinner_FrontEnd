@@ -1,14 +1,56 @@
 .salon-container {
   position: relative;
-  width: 800px;
+  width: 100%;
   height: 600px;
-  background-color: #f8f8f8;
-  border: 2px solid #ccc;
+  background-color: #f7f7f7;
+  border: 2px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
+  margin: 20px auto;
 }
 
-.mesa-wrapper {
+.mesa {
   position: absolute;
-  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mesa:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.mesa.libre {
+  background-color: #4caf50;
+}
+
+.mesa.ocupada {
+  background-color: #f44336;
+}
+
+.mesa.reservada {
+  background-color: #ff9800;
+}
+
+.numero {
+  font-size: 1.2em;
+}
+
+.capacidad {
+  font-size: 0.8em;
+}
+
+.error-msg {
+  text-align: center;
+  color: #d32f2f;
+  font-weight: 600;
+  margin-top: 10px;
 }

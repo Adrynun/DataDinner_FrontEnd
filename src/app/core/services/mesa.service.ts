@@ -2,8 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Mesa } from 'src/app/shared/models/mesa.model';
-import { environment } from 'src/environments/environment';
+import { Mesa } from '../../shared/models/mesa.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'

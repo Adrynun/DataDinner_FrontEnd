@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Mesa } from 'src/app/shared/models/mesa.model';
-import { MesaService } from 'src/app/core/services/mesa.service';
+import { Mesa } from '../../shared/models/mesa.model';
+import { MesaService } from '../../core/services/mesa.service';
 
 @Component({
   selector: 'app-salon',

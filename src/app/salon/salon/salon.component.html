@@ -1,14 +1,17 @@
-<h2>Salón de mesas</h2>
 <div class="salon-container">
   <div
-    class="mesa-wrapper"
     *ngFor="let mesa of mesas"
+    class="mesa"
+    [ngClass]="mesa.estado.toLowerCase()"
+    (click)="irAPedido(mesa.id)"
     [style.left.px]="mesa.x"
     [style.top.px]="mesa.y"
   >
-    <app-mesa-item
-      [mesa]="mesa"
-      (mesaClick)="irAPedido($event)"
-    ></app-mesa-item>
+    <div class="numero">{{ mesa.numero }}</div>
+    <div class="capacidad">{{ mesa.capacidad }} pers.</div>
   </div>
+</div>
+
+<div *ngIf="errorCarga" class="error-msg">
+  {{ errorCarga }}
 </div>

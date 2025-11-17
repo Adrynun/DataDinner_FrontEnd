@@ -1,0 +1,8 @@
+<div class="productos-container">
+  <div 
+    class="producto-card" 
+    *ngFor="let producto of productos" 
+    (click)="agregarProducto(producto)">
+    {{ producto.nombre }}
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<h3>Detalle Pedido #{{ mesaId }}</h3>
+<ul>
+  <li *ngFor="let producto of pedido.productos">{{ producto.nombre }}</li>
+</ul>
+<p>Total productos: {{ pedido.total }}</p>
