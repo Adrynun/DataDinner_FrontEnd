@@ -1,7 +1,7 @@
-<p style="color:red">CATEGORIAS</p>
-<div *ngIf="cargando">Cargando categorías...</div>
-<div class="categorias-container">
-  <button *ngFor="let cat of categorias" (click)="seleccionarCategoria(cat.id)">
-    {{ cat.nombre }}
-  </button>
+<div class="categorias-grid">
+  <div 
+    class="categoria-card" 
+    *ngFor="let categoria of categorias"
+    [attr.data-nombre]="categoria.nombre" (click)="seleccionarCategoria(categoria.id)">
+    </div>
 </div>

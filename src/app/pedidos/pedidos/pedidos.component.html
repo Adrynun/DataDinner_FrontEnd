@@ -1,24 +1,41 @@
-<h1>Mesa {{ idMesa }}</h1>
 <div class="pedidos-container">
-  <!-- Categorías -->
-  <div class="col categorias">
-    <app-categorias-list
-      (categoriaSeleccionada)="categoriaSeleccionada($event)">
-    </app-categorias-list>
+  <div class="nombre-mesa">Mesa {{ idMesa }}</div>
+
+  <div class="contenido-principal">
+    <div class="panel-pedido">
+      <app-pedidos-detalle [pedido]="pedido"> </app-pedidos-detalle>
+    </div>
+
+    <div class="panel-menu">
+      <div class="seccion menu-categorias">
+        <app-categorias-list
+          (categoriaSeleccionada)="categoriaSeleccionada($event)"
+        >
+        </app-categorias-list>
+      </div>
+
+      <div class="seccion menu-productos">
+        <app-productos-list
+          [categoriaId]="categoriaId"
+          (productoSeleccionado)="agregarProductoAlPedido($event)"
+        >
+        </app-productos-list>
+      </div>
+    </div>
   </div>
 
-  <!-- Lista de productos filtrados -->
-  <div class="col productos">
-    <app-productos-list
-      [categoriaId]="categoriaId"
-      (productoSeleccionado)="agregarProductoAlPedido($event)">
-    </app-productos-list>
-  </div>
-
-  <!-- Detalle del pedido -->
-  <div class="col detalle">
-    <app-pedidos-detalle
-      [pedido]="pedido">
-    </app-pedidos-detalle>
+  <div class="acciones-pie">
+    <button class="accion-volver" (click)="volverAlSalon()">
+      Volver a Salón
+    </button>
+    <button class="accion-cerrar" (click)="cerrarSesion()">
+      Cerrar sesión
+    </button>
+    <button class="accion-facturar" (click)="facturarPedido()">
+      Facturar y Cerrar
+    </button>
+    <button class="accion-enviar" (click)="enviarPedido()">
+      Enviar a Cocina
+    </button>
   </div>
 </div>

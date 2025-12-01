@@ -12,9 +12,7 @@ export class PedidoService {
   private apiUrl = `${environment.apiUrl}/pedidos`;
 
   private pedidos: { [idMesa: number]: Pedido } = {};
-  private pedidosSubject = new BehaviorSubject<{ [idMesa: number]: Pedido }>(
-    this.pedidos,
-  );
+  private pedidosSubject = new BehaviorSubject<{ [idMesa: number]: Pedido }>(this.pedidos);
 
   getPedidos(): Observable<{ [idMesa: number]: Pedido }> {
     return this.pedidosSubject.asObservable();
@@ -23,26 +21,32 @@ export class PedidoService {
   agregarProducto(idMesa: number, producto: Producto) {
     if (!this.pedidos[idMesa]) {
       this.pedidos[idMesa] = {
-        id: Date.now(), // id único, puede ser timestamp o cualquier generador de ID
+        id: Date.now(),
         idMesa,
         productos: [],
         total: 0,
         estado: 'PENDIENTE',
       };
     }
+
+    // Añadir producto
     this.pedidos[idMesa].productos.push(producto);
-    this.pedidos[idMesa].total = this.pedidos[idMesa].productos.length; // ejemplo simple: total = nº productos
+
+    // Calcular total real
+    this.pedidos[idMesa].total = this.pedidos[idMesa].productos
+      .reduce((acc, p) => acc + p.precio, 0);
+
+    // Notificar cambios
     this.pedidosSubject.next(this.pedidos);
   }
 
   obtenerPedido(idMesa: number): Pedido {
-    return (
-      this.pedidos[idMesa] || {
-        idMesa,
-        productos: [],
-        total: 0,
-        estado: 'PENDIENTE',
-      }
-    );
+    return this.pedidos[idMesa] || {
+      id: Date.now(),
+      idMesa,
+      productos: [],
+      total: 0,
+      estado: 'PENDIENTE',
+    };
   }
 }

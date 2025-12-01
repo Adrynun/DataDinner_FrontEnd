@@ -1,8 +1,10 @@
-<div class="productos-container">
+<div class="productos-grid">
   <div 
     class="producto-card" 
-    *ngFor="let producto of productos" 
+    *ngFor="let producto of productos"
     (click)="seleccionarProducto(producto)">
-    {{ producto.nombre }}
+    <div class="producto-nombre">
+      {{ producto.nombre }}
+    </div>
   </div>
 </div>

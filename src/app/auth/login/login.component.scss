@@ -1,44 +1,189 @@
+/* app/auth/login/login.component.scss */
+
+/* --- CONTENEDOR PRINCIPAL (Layout Base) --- */
 .login-container {
-  text-align: center;
-  padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 1rem;
+    overflow: hidden; /* CRÍTICO: Previene el scroll del contenedor principal */
+    gap: 15px;
+    
+    background: linear-gradient(
+        to right, 
+        #bad3ec, /* Azul muy suave a la izquierda */
+        #f7f9fa, /* Centro casi blanco para que el contenido resalte */
+        #dbb690  /* Naranja/Dorado muy suave a la derecha */
+    );
 }
 
+.titulo-login {
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+/* 🌟 CONTENEDOR FLEX: ALINEACIÓN LATERAL (Logo, Usuarios, PIN Pad) 🌟 */
+.login-content-wrapper {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    flex: 1;
+    max-height: calc(100vh - 80px); 
+    padding-top: 10px;
+    
+    /* Centra el bloque completo de 3 columnas en la pantalla */
+    justify-content: center;
+}
+
+/* --- COLUMNA IZQUIERDA: LOGO (Más grande y centrado) --- */
+.logo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-top: 10px; 
+    
+    /* Aumentamos el tamaño de la columna del logo */
+    flex: 0 0 180px; /* Ancho fijo de 180px */
+    align-self: flex-start; /* Alinea el wrapper del logo con la parte superior */
+}
+
+.app-logo-sidebar {
+    /* Aumentamos el tamaño del logo dentro del wrapper */
+    width: 550px; 
+    height: 550px;
+    object-fit: contain;
+}
+
+/* --- USUARIOS (Columna Central con Scroll Interno) --- */
 .usuarios-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column; /* Apila las tarjetas verticalmente */
+    flex-wrap: nowrap;
+    gap: 10px;
+    max-height: 100%; /* Limita la altura de la columna de usuarios */
+    overflow-y: auto; /* CRÍTICO: Scroll si la lista es muy larga */
+    padding-right: 15px;
 }
 
 .usuario-card {
-  width: 120px;
-  padding: 1rem;
-  border-radius: 10px;
-  background: #f2f2f2;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
-}
+    width: 120px;
+    padding: 0.75rem;
+    border-radius: 10px;
+    background: #f2f2f2;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
 
-.usuario-card:hover {
-  transform: scale(1.05);
-  background-color: #eaeaea;
+    /* Centrado de imagen y texto */
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    text-align: center; 
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    &.selected {
+        border: 3px solid #007bff; /* Resalta el usuario activo */
+        background-color: #e6f0ff;
+    }
 }
 
 .avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 5px;
 }
 
-.pin-container {
-  margin-top: 2rem;
+.usuario-card p {
+    font-size: 1.1rem; /* Aumento del tamaño de fuente */
+    font-weight: 600;
+    margin-top: 5px;
 }
 
-input {
-  padding: 0.5rem;
-  font-size: 1.2rem;
-  width: 100px;
-  text-align: center;
+/* --- PIN PAD (Columna Derecha) --- */
+.pin-area {
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+}
+
+.pin-display {
+    border: 2px solid #ccc;
+    padding: 10px 20px;
+    min-height: 50px;
+    width: 250px;
+    text-align: center;
+    font-size: 1.5em;
+    letter-spacing: 10px;
+    border-radius: 8px;
+    background-color: #f8f8f8;
+}
+
+.pin-pad {
+    /* 🌟 CRÍTICO: Aumentamos el ancho de las columnas a 80px 🌟 */
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    gap: 8px;
+}
+
+.pin-pad button {
+    height: 70px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #e9ecef;
+    transition: background-color 0.1s;
+    
+    &:active {
+        background-color: #ced4da;
+    }
+}
+
+/* 🌟 CORRECCIÓN: Quitamos la reducción de fuente y padding, ahora caben con 80px 🌟 */
+.action-borrar, .action-entrar {
+    font-size: 1.4rem; 
+    padding: 0; 
+}
+
+.action-borrar { 
+    background-color: #ffc107;
+    font-weight: bold; 
+}
+
+.action-entrar { 
+    background-color: #28a745;
+    color: white; 
+    font-weight: bold;
+    
+    &:disabled { 
+        background-color: #a3e0b2;
+        cursor: not-allowed;
+    }
+}
+
+.action-cancelar {
+    margin-top: 15px;
+    padding: 10px 30px;
+    border: none;
+    background: transparent;
+    color: #dc3545;
+    cursor: pointer;
+    font-weight: 600;
 }

@@ -1,13 +1,130 @@
-.pedidos-container {
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 20px;
-  padding: 20px;
+
+* {
+    box-sizing: border-box;
 }
 
-.col {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+.pedidos-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+  padding: 10px; 
+  overflow: hidden; 
+}
+
+.nombre-mesa {
+  text-align: center;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding-bottom: 10px; 
+  border-bottom: 1px solid #eee; 
+  flex-shrink: 0; 
+}
+
+.contenido-principal {
+  display: flex;
+  flex: 1; 
+  gap: 15px;
+  overflow: hidden; 
+}
+
+/* --- ESTILO BASE DE PANELES --- */
+.panel-pedido, .menu-categorias, .menu-productos {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px; 
+}
+
+/* --- Panel Izquierdo: DETALLE DEL PEDIDO --- */
+.panel-pedido {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  
+  /* El subcomponente es el que debe tener el scroll */
+  app-pedidos-detalle {
+    flex: 1; 
+    overflow-y: auto; 
+  }
+}
+
+/* --- Panel Derecho: MENÚ (Categorías + Productos) --- */
+.panel-menu {
+  flex: 2; 
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Sub-secciones del Menú (Categorías arriba) */
+.menu-categorias {
+  flex: 0 0 20%; 
+  
+  /* El subcomponente es el que debe tener el scroll */
+  app-categorias-list {
+    max-height: 100%;
+    overflow-y: auto; 
+  }
+}
+
+/* Sub-secciones del Menú (Productos abajo) */
+.menu-productos {
+  flex: 1; 
+  
+  /* El subcomponente es el que debe tener el scroll */
+  app-productos-list {
+    max-height: 100%;
+    overflow-y: auto; 
+  }
+}
+
+/* --- Botones al pie (Fijo) --- */
+.acciones-pie {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 10px 0;
+  border-top: 1px solid #eee;
+}
+
+.acciones-pie button {
+    /* Estilo de tarjeta/botón grande */
+    flex: 1; /* Para que todos tengan el mismo ancho dentro de su contenedor */
+    max-width: 150px; /* Limitar el tamaño para que no sean demasiado anchos */
+    padding: 10px;
+    border: none;
+    border-radius: 8px; /* Borde más suave */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* --- Colores de Acción TPV --- */
+
+/* Volver a Salón (Acción Neutra/Retroceso) */
+.accion-volver {
+    background-color: #6c757d; /* Gris */
+    color: white;
+}
+
+/* Cerrar Sesión (Acción de Salida) */
+.accion-cerrar {
+    background-color: #dc3545; /* Rojo (Peligro/Salir) */
+    color: white;
+}
+
+/* Facturar y Cerrar (Acción de Confirmación/Cierre) */
+.accion-facturar {
+    background-color: #28a745; /* Verde (Éxito/Pago) */
+    color: white;
+}
+
+/* Enviar a Cocina (Acción de Proceso) */
+.accion-enviar {
+    background-color: #007bff; /* Azul (Proceso/Envío) */
+    color: white;
 }

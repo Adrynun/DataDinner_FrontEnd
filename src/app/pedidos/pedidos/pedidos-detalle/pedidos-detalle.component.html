@@ -1,22 +1,17 @@
-<div *ngIf="pedido; else sinPedido" class="pedido-detalle">
-  <h3>Pedido mesa {{ pedido.idMesa }}</h3>
-  <p>Estado: {{ pedido.estado }}</p>
+<div *ngIf="productosAgrupados.length > 0; else sinProductos" class="pedido-detalle">
+  <ul class="productos-lista">
+    <li *ngFor="let item of productosAgrupados" class="producto-item">
+      <span class="producto-nombre">{{ item.producto.nombre }} x{{ item.cantidad }}</span>
+      <span class="producto-precio">{{ item.subtotal | number:'1.2-2' }} €</span>
+      <button class="btn-eliminar" (click)="eliminarProducto(item.producto.id)">🗑️</button>
+    </li>
+  </ul>
 
-  <div *ngIf="pedido.productos.length > 0; else sinProductos">
-    <h4>Productos:</h4>
-    <ul>
-      <li *ngFor="let producto of pedido.productos">
-        {{ producto.nombre }} - {{ producto.precio | currency }}
-      </li>
-    </ul>
-    <p><strong>Total:</strong> {{ pedido.total | currency }}</p>
+  <div class="pedido-total">
+    <strong>Total:</strong> {{ total | number:'1.2-2' }} €
   </div>
-
-  <ng-template #sinProductos>
-    <p>No hay productos añadidos todavía.</p>
-  </ng-template>
 </div>
 
-<ng-template #sinPedido>
-  <p>No hay pedido seleccionado.</p>
+<ng-template #sinProductos>
+  <p>No hay productos añadidos todavía.</p>
 </ng-template>

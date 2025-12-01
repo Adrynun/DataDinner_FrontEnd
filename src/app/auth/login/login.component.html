@@ -1,30 +1,65 @@
 <div class="login-container">
-  <h2>Selecciona tu usuario</h2>
+  
+  <h2 class="titulo-login"></h2>
 
-  <div class="usuarios-grid">
-    <div
-      class="usuario-card"
-      *ngFor="let usuario of usuarios"
-      (click)="seleccionarUsuario(usuario)"
-    >
-      <img
-        [src]="usuario.avatarUrl || 'assets/avatars/default.png'"
-        alt="{{ usuario.nombre }}"
-        class="avatar"
-      />
-      <p>{{ usuario.nombre }}</p>
+  <div class="login-content-wrapper">
+    
+    <div class="logo-wrapper">
+        <img
+          src="assets/LogoRedondo-512x512.png"
+          alt="Logo DataDinner"
+          class="app-logo-sidebar" 
+        />
     </div>
-  </div>
 
-  <div *ngIf="usuarioSeleccionado" class="pin-container">
-    <h3>Introduce tu PIN</h3>
-    <input
-      type="password"
-      [(ngModel)]="pin"
-      placeholder="PIN"
-      maxlength="4"
-    />
-    <button (click)="login()">Entrar</button>
-    <button (click)="cancelar()">Cancelar</button>
+    <div class="usuarios-grid">
+      <div
+        class="usuario-card"
+        *ngFor="let usuario of usuarios"
+        (click)="seleccionarUsuario(usuario)"
+        [class.selected]="usuario.id === usuarioSeleccionado?.id"
+      >
+        <img
+          [src]="usuario.avatarUrl || 'assets/avatars/default.png'"
+          alt="{{ usuario.nombreUsuario }}"
+          class="avatar"
+        />
+        <p>{{ usuario.nombreUsuario }}</p>
+      </div>
+    </div>
+
+    <div *ngIf="usuarioSeleccionado" class="pin-area">
+      <div class="pin-display">
+        {{ pinDisplay || " " }}
+      </div>
+
+      <div class="pin-pad">
+        <button 
+          *ngFor="let num of [1, 2, 3, 4, 5, 6, 7, 8, 9]" 
+          (click)="digitar(num)" 
+          [disabled]="isLoading"
+        >
+          {{ num }}
+        </button>
+        
+        <button
+          class="action-btn action-borrar"
+          (click)="borrar()"
+          [disabled]="isLoading"
+        >
+          Borrar
+        </button>
+        <button (click)="digitar(0)" [disabled]="isLoading">0</button>
+        <button
+          class="action-btn action-entrar"
+          (click)="login()"
+          [disabled]="isLoading || pin.length < 2"
+        >
+          {{ isLoading ? "..." : "Entrar" }}
+        </button>
+      </div>
+
+      <button class="action-cancelar" (click)="cancelar()">Cancelar</button>
+    </div>
   </div>
 </div>
