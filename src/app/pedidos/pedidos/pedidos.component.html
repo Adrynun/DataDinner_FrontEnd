@@ -1,13 +1,24 @@
+<h1>Mesa {{ idMesa }}</h1>
 <div class="pedidos-container">
-  
-  <!-- Lista de productos -->
+  <!-- Categorías -->
+  <div class="col categorias">
+    <app-categorias-list
+      (categoriaSeleccionada)="categoriaSeleccionada($event)">
+    </app-categorias-list>
+  </div>
+
+  <!-- Lista de productos filtrados -->
   <div class="col productos">
-    <app-productos-list></app-productos-list>
+    <app-productos-list
+      [categoriaId]="categoriaId"
+      (productoSeleccionado)="agregarProductoAlPedido($event)">
+    </app-productos-list>
   </div>
 
   <!-- Detalle del pedido -->
   <div class="col detalle">
-    <app-pedidos-detalle></app-pedidos-detalle>
+    <app-pedidos-detalle
+      [pedido]="pedido">
+    </app-pedidos-detalle>
   </div>
-
 </div>

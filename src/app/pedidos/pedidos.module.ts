@@ -6,6 +6,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 import { PedidosListComponent } from './pedidos/pedidos-list/pedidos-list.component';
 import { PedidoDetalleComponent } from './pedidos/pedidos-detalle/pedidos-detalle.component';
 import { ProductosListComponent } from './pedidos/productos-list/productos-list.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ProductosListComponent } from './pedidos/productos-list/productos-list.
   ],
   imports: [
     CommonModule,
-    PedidosRoutingModule
+    PedidosRoutingModule,
+    SharedModule
   ]
 })
 export class PedidosModule { }

@@ -1,5 +1,22 @@
-<h3>Detalle Pedido #{{ mesaId }}</h3>
-<ul>
-  <li *ngFor="let producto of pedido.productos">{{ producto.nombre }}</li>
-</ul>
-<p>Total productos: {{ pedido.total }}</p>
+<div *ngIf="pedido; else sinPedido" class="pedido-detalle">
+  <h3>Pedido mesa {{ pedido.idMesa }}</h3>
+  <p>Estado: {{ pedido.estado }}</p>
+
+  <div *ngIf="pedido.productos.length > 0; else sinProductos">
+    <h4>Productos:</h4>
+    <ul>
+      <li *ngFor="let producto of pedido.productos">
+        {{ producto.nombre }} - {{ producto.precio | currency }}
+      </li>
+    </ul>
+    <p><strong>Total:</strong> {{ pedido.total | currency }}</p>
+  </div>
+
+  <ng-template #sinProductos>
+    <p>No hay productos añadidos todavía.</p>
+  </ng-template>
+</div>
+
+<ng-template #sinPedido>
+  <p>No hay pedido seleccionado.</p>
+</ng-template>

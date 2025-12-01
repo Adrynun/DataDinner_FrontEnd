@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Producto } from '../../shared/models/producto.model';
 import { Pedido } from '../../shared/models/pedido.model';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PedidoService {
+
+  private apiUrl = `${environment.apiUrl}/pedidos`;
+
   private pedidos: { [idMesa: number]: Pedido } = {};
   private pedidosSubject = new BehaviorSubject<{ [idMesa: number]: Pedido }>(
     this.pedidos,

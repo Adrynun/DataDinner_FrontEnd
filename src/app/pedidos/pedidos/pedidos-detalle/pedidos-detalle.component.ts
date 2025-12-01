@@ -9,7 +9,8 @@ import { Pedido } from '../../../shared/models/pedido.model';
 })
 export class PedidoDetalleComponent implements OnInit {
   @Input() mesaId!: number;
-  pedido!: Pedido;
+  @Input() pedido!: Pedido;
+  
 
   constructor(private pedidoService: PedidoService) {}
 
