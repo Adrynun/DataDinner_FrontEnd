@@ -1,17 +1,75 @@
+<div class="salon-header">
+   
+  <h1 class="titulo-salon">Salón</h1>
+
+   
+  <div class="acciones-globales">
+       
+    <button class="btn-cerrar-sesion" (click)="cerrarSesion()">
+            Cerrar sesión    
+    </button>
+     
+  </div>
+</div>
+
 <div class="salon-container">
+       
   <div
     *ngFor="let mesa of mesas"
     class="mesa"
     [ngClass]="mesa.estado.toLowerCase()"
-    (click)="irAPedido(mesa.id)"
+    (click)="manejarClickMesa(mesa)"
     [style.left.px]="mesa.x"
     [style.top.px]="mesa.y"
   >
-    <div class="numero">{{ mesa.numero }}</div>
-    <div class="capacidad">{{ mesa.capacidad }} pers.</div>
+    <!-- Contenedor para la ilustración de la mesa (SVG simulado por CSS) -->
+    <div class="mesa-ilustracion">
+      <!-- 🌟 Solo el número de mesa 🌟 -->
+      <div class="numero">{{ mesa.numero }}</div>
+    </div>
+     
   </div>
 </div>
 
-<div *ngIf="errorCarga" class="error-msg">
-  {{ errorCarga }}
+<div *ngIf="errorCarga" class="error-msg">  {{ errorCarga }}</div>
+
+<!-- ----------------------------------------------------
+ * 🌟 MODAL CON PAD NUMÉRICO PARA ABRIR MESA 🌟
+ * ---------------------------------------------------- -->
+<div class="modal-backdrop" *ngIf="mesaSeleccionadaParaAbrir">
+  <div class="modal-content">
+    <h2>Abrir Mesa {{ mesaSeleccionadaParaAbrir.numero }}</h2>
+    <p class="capacity-info">
+      Capacidad máxima: **{{ mesaSeleccionadaParaAbrir.capacidad }}** personas.
+    </p>
+
+    <div class="comensales-pad">
+      <p>Selecciona comensales:</p>
+      <div class="pad-buttons-grid">
+        <!-- Genera botones dinámicamente del 1 a la capacidad máxima -->
+        <button
+          *ngFor="
+            let i of [].constructor(mesaSeleccionadaParaAbrir.capacidad);
+            let idx = index
+          "
+          (click)="comensalesInput = idx + 1"
+          [class.selected]="comensalesInput === idx + 1"
+          class="pad-button"
+        >
+          {{ idx + 1 }}
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cancelarApertura()">Cancelar</button>
+      <button
+        class="btn-confirm"
+        (click)="abrirMesa()"
+        [disabled]="comensalesInput <= 0"
+      >
+        Abrir Mesa con {{ comensalesInput }} Comensales
+      </button>
+    </div>
+  </div>
 </div>

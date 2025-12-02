@@ -1,56 +1,278 @@
-.salon-container {
-  position: relative;
-  width: 100%;
-  height: 600px;
-  background-color: #f7f7f7;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  margin: 20px auto;
+.salon-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.mesa {
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+.titulo-salon {
+    font-size: 1.8em;
+    color: #0b3c66;
+    margin: 0;
 }
+
+.btn-cerrar-sesion {
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: 600;
+    color: white;
+    background-color: #dc3545;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    
+    &:hover {
+        background-color: #c82333;
+    }
+}
+
+.salon-container {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    background-color: #f7f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    margin: 20px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    background-image: url('../../../assets/images/suelo.png');
+}
+
+/* ----------------------------------------------------
+ * 🌟 MEJORA VISUAL DE LAS MESAS (Mesa Circular + Sillas) 🌟
+ * ---------------------------------------------------- */
+.mesa {
+    position: absolute;
+    /* Contenedor total para la mesa y las sillas, le damos más espacio */
+    width: 120px; 
+    height: 120px; 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: none;
+    background-color: transparent; /* El fondo es transparente, la forma la da .mesa-ilustracion */
+}
+
+.mesa-ilustracion {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* La forma circular de la mesa */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #333;
+    /* Sombra y borde para la mesa real */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    border: 3px solid transparent; 
+    position: relative;
+    z-index: 10;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Sillas (Pseudo-elementos) */
+.mesa-ilustracion::before, 
+.mesa-ilustracion::after {
+    content: '';
+    position: absolute;
+    background-color: #bbb; /* Color de las sillas */
+    border-radius: 5px;
+    width: 20px; 
+    height: 10px;
+    z-index: 5;
+    transition: background-color 0.3s;
+}
+
+/* Silla superior/inferior */
+.mesa-ilustracion::before {
+    top: -20px; /* Posicionamiento fuera de la mesa */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mesa-ilustracion::after {
+    bottom: -20px; 
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Silla izquierda/derecha (simulada por otra clase o si tienes mesas rectangulares) 
+   Para simplificar, usaremos solo dos sillas. Si quieres 4 sillas, tendríamos que usar un wrapper o más elementos.
+*/
+
 
 .mesa:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transform: scale(1.05);
+    box-shadow: none; /* Quitamos la sombra del contenedor, la dejamos en .mesa-ilustracion */
 }
 
-.mesa.libre {
-  background-color: #4caf50;
+/* Colores y estados aplicados a la ilustración */
+.mesa.libre .mesa-ilustracion {
+    background-color: #f5f5f5;
+    color: #777;
+    border-color: #ccc;
 }
 
-.mesa.ocupada {
-  background-color: #f44336;
+.mesa.ocupada .mesa-ilustracion {
+    background-color: #ffc107;
+    color: #333;
+    border-color: #e0a800;
+}
+.mesa.ocupada .mesa-ilustracion::before,
+.mesa.ocupada .mesa-ilustracion::after {
+    background-color: #e0a800; /* Color de silla para ocupada */
 }
 
-.mesa.reservada {
-  background-color: #ff9800;
+.mesa.reservada .mesa-ilustracion {
+    background-color: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+.mesa.reservada .mesa-ilustracion::before,
+.mesa.reservada .mesa-ilustracion::after {
+    background-color: #0056b3; /* Color de silla para reservada */
+}
+
+.mesa.pedir_cuenta .mesa-ilustracion {
+    background-color: #28a745;
+    color: white;
+    border-color: #1e7e34;
+}
+.mesa.pedir_cuenta .mesa-ilustracion::before,
+.mesa.pedir_cuenta .mesa-ilustracion::after {
+    background-color: #1e7e34; /* Color de silla para pedir_cuenta */
 }
 
 .numero {
-  font-size: 1.2em;
-}
-
-.capacidad {
-  font-size: 0.8em;
+    font-size: 2em;
+    line-height: 1;
+    /* 🌟 Centrado vertical/horizontal perfecto 🌟 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
 }
 
 .error-msg {
-  text-align: center;
-  color: #d32f2f;
-  font-weight: 600;
-  margin-top: 10px;
+    text-align: center;
+    color: #d32f2f;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+/* ----------------------------------------------------
+ * 🌟 ESTILOS DEL MODAL (PAD NUMÉRICO) 🌟
+ * ---------------------------------------------------- */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: #0b3c66;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.capacity-info {
+    margin-bottom: 25px;
+    font-size: 1.1em;
+    color: #555;
+}
+
+.comensales-pad p {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #0b3c66;
+}
+
+.pad-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 botones por fila */
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.pad-button {
+    padding: 15px 0;
+    font-size: 1.4em;
+    font-weight: 700;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.1s, border-color 0.1s, transform 0.1s;
+}
+
+.pad-button:hover {
+    background-color: #eee;
+    transform: scale(1.05);
+}
+
+.pad-button.selected {
+    background-color: #0b3c66;
+    color: white;
+    border-color: #0b3c66;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-cancel {
+    background-color: #f0f0f0;
+    color: #333;
+
+    &:hover {
+        background-color: #e0e0e0;
+    }
+}
+
+.btn-confirm {
+    background-color: #28a745; /* Verde */
+    color: white;
+
+    &:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+        background-color: #1e7e34;
+    }
 }

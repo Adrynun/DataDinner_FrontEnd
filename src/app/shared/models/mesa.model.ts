@@ -1,4 +1,4 @@
-export type EstadoMesa = 'LIBRE' | 'OCUPADA' | 'RESERVADA';
+export type EstadoMesa = 'LIBRE' | 'OCUPADA' | 'RESERVADA' | 'PEDIR_CUENTA';
 
 export interface Mesa {
   id: number;
@@ -7,4 +7,5 @@ export interface Mesa {
   estado: EstadoMesa;
   x?: number;
   y?: number;
+  comensales?: number;
 }

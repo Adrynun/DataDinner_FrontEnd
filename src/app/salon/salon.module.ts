@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SalonRoutingModule } from './salon-routing.module';
 import { SalonComponent } from './salon/salon.component';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SalonRoutingModule,
     SharedModule
   ]
