@@ -14,7 +14,7 @@ interface ProductoAgrupado {
   styleUrls: ['./pedidos-detalle.component.scss'],
 })
 export class PedidoDetalleComponent {
-  @Input() pedido!: Pedido;
+  @Input() pedido: Pedido | undefined;
 
   get productosAgrupados(): ProductoAgrupado[] {
     if (!this.pedido?.productos) return [];

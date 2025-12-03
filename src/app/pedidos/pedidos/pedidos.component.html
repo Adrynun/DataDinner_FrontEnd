@@ -1,41 +1,74 @@
 <div class="pedidos-container">
+   
   <div class="nombre-mesa">Mesa {{ idMesa }}</div>
 
+   
   <div class="contenido-principal">
+       
     <div class="panel-pedido">
-      <app-pedidos-detalle [pedido]="pedido"> </app-pedidos-detalle>
+      <!-- CORRECCIÓN CLAVE: Usamos *ngIf para asegurar que 'pedido' tenga un valor no nulo -->
+           
+      <app-pedidos-detalle *ngIf="pedido$ | async as pedido" [pedido]="pedido">
+      </app-pedidos-detalle>
+      <!-- Mostramos un mensaje si el pedido es nulo (es decir, no ha cargado) -->
+      <div *ngIf="!(pedido$ | async)" class="p-4 text-center text-gray-500">
+        Cargando detalle del pedido...
+      </div>
+         
     </div>
 
+       
     <div class="panel-menu">
+           
       <div class="seccion menu-categorias">
+               
         <app-categorias-list
           (categoriaSeleccionada)="categoriaSeleccionada($event)"
         >
+                 
         </app-categorias-list>
+             
       </div>
 
+           
       <div class="seccion menu-productos">
+               
         <app-productos-list
           [categoriaId]="categoriaId"
           (productoSeleccionado)="agregarProductoAlPedido($event)"
         >
+                 
         </app-productos-list>
+             
       </div>
+         
     </div>
+     
   </div>
 
+   
   <div class="acciones-pie">
+       
     <button class="accion-volver" (click)="volverAlSalon()">
-      Volver a Salón
+            Volver a Salón    
     </button>
+       
     <button class="accion-cerrar" (click)="cerrarSesion()">
-      Cerrar sesión
+            Cerrar sesión    
     </button>
+       
     <button class="accion-facturar" (click)="facturarPedido()">
-      Facturar y Cerrar
+            Facturar y Cerrar    
     </button>
-    <button class="accion-enviar" (click)="enviarPedido()">
-      Enviar a Cocina
+    <!-- CAMBIO CLAVE: El texto ahora es "Enviar Pedido" -->
+       
+    <button
+      class="accion-enviar"
+      (click)="enviarPedido()"
+      [disabled]="enviandoPedido"
+    >
+            {{ enviandoPedido ? "Enviando..." : "Enviar Pedido" }}    
     </button>
+     
   </div>
 </div>

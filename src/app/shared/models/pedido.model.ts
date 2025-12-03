@@ -5,5 +5,5 @@ export interface Pedido {
   idMesa: number;
   productos: Producto[];
   total: number;
-  estado: 'PENDIENTE' | 'CONFIRMADO' | 'ENTREGADO';
+  estado: 'PENDIENTE' | 'EN_PREPARACION' | 'CONFIRMADO' | 'ENTREGADO';
 }
